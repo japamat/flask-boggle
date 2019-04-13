@@ -27,14 +27,16 @@ def answer_handling():
 
 @app.route('/new_game', methods=["POST"])
 def user_handling():
-    final = request.values
+    final = int(request.form['high'])
+    print('**************')
+    print(final)
     if session.get('user'):
         temp = session['user'].games
         temp += 1
         session['user'].games = temp
-        if session['user'].high < final.high:
-            session['user'].high = final.high
+        if session['user'].high < final:
+            session['user'].high = final
     else:
-        session['user'] = {'high': final.high, 'games': 1}
+        session['user'] = {'high': final, 'games': 1}
     session['user'] = session['user']
     return redirect('/')
